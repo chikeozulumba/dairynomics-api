@@ -1,0 +1,11 @@
+export const token =
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYmV0YS5jb3dzb2tvLmNvbVwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE1NjA4NjY3NjIsImV4cCI6MTU2MDk1MzE2MiwibmJmIjoxNTYwODY2NzYyLCJqdGkiOiJ0R2czY0EwMzh4Z2o3cGVKIiwic3ViIjoxOTIzLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.AXPyA8nxbfM0_gkmgtoihT6eE_oRpPl-QPHHfHShghw'
+
+export const externalToken =
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1NjEzNTk0MjEsImV4cCI6MTU5Mjg5NTQyMSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiMTIzNCJ9.Tv3CyvylvGBv_wSBeMSAzzdG254bjYDZMzeCRfIZMmU'
+
+export const userId = 1923
+
+export const productId = '351043bb-3460-4937-902c-e450ab2afc47'
+export const secondProductId = '351043bb-3460-4937-902c-e450ab2afc48'
+export const invalidProductId = '351043bb-3460-4937-902c-e450ab2afc4f'

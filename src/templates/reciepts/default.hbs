@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Dairynomics - Invoice {{ invoiceNumber }}</title>
+
+    <style>
+        body {
+            padding: 50px 0 0;
+        }
+        
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Comfortaa-Bold', serif;
+            color: #555;
+        }
+        
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+        
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        
+        .invoice-box table tr td:nth-child(2) {
+            text-align: center;
+        }
+        
+        .invoice-box table tr td:nth-child(3) {
+            text-align: right;
+        }
+        
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+        
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+        
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+        
+        .invoice-box table tr.heading td {
+            background: #90b42e54;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+        
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+        
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+        
+        .invoice-box table tr.total td:nth-child(3) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+        /** RTL **/
+        
+        .rtl {
+            direction: rtl;
+            font-family: 'Grenze', serif;
+        }
+        
+        .rtl table {
+            text-align: right;
+        }
+        
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjIwOSAtMjYgNDY3IDEwMCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAyMDkgLTI2IDQ2NyAxMDA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojOTBCNDJFO30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8Zz4KCQkJPGc+CgkJCQk8Zz4KCQkJCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjY5LjMsNDAuNGwtMS40LTIuNWM1LjEtMi45LDguNC04LjEsOC45LTEzLjljLTMsMC4yLTUuMiwxLjItNy41LDIuMWMtMi45LDEuMi02LjIsMi42LTExLjUsMi42CgkJCQkJCWMtNi44LDAtMTIuNi0yLjItMTUuOC0zLjZjMC4yLDEuMSwwLjQsMi4xLDAuOCwzLjJsLTIuOCwwLjljLTAuNy0yLjEtMS4xLTQuMy0xLjEtNi42di0yLjZsMi4yLDEuM2MwLjEsMCw3LjYsNC40LDE2LjYsNC40CgkJCQkJCWM0LjYsMCw3LjQtMS4yLDEwLjMtMi40YzIuOC0xLjIsNS43LTIuNCwxMC4xLTIuNGgxLjJsMC4zLDEuN0MyNzkuOCwzMCwyNzUuOCwzNi44LDI2OS4zLDQwLjR6Ii8+CgkJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTI1OS40LDQzYy01LjYsMC0xMC44LTIuMi0xNC43LTYuM2wyLjEtMmMzLjMsMy41LDcuOCw1LjQsMTIuNiw1LjRjMC43LDAsMS40LDAsMi4xLTAuMWwwLjQsMi45CgkJCQkJCUMyNjEsNDMsMjYwLjIsNDMsMjU5LjQsNDN6Ii8+CgkJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTI2Ni42LDUwLjNjLTIuNCwwLTQuMy0xLjUtNS4xLTQuMWMtMC42LTItMS4yLTMuOS0xLjgtNS44Yy0wLjMtMS4xLTAuNy0yLjItMS0zLjRsMi44LTAuOAoJCQkJCQljMC40LDEuMiwwLjcsMi4zLDEsMy40YzAuNiwxLjksMS4xLDMuNywxLjcsNS43YzAuMiwwLjcsMC45LDIuMiwyLjUsMi4xYzAuOS0wLjEsMS40LTAuNSwxLjYtMC45YzAuNC0wLjYsMC42LTEuNCwwLjQtMi4yCgkJCQkJCWMtMC42LTIuMi0xLjItNC4yLTEuOS02LjJjLTAuMy0xLTAuNy0yLjEtMS0zLjJsMi44LTAuOWMwLjMsMS4xLDAuNywyLjEsMSwzLjJjMC43LDIuMSwxLjMsNC4xLDEuOSw2LjQKCQkJCQkJYzAuNCwxLjYsMC4xLDMuMy0wLjgsNC42Yy0wLjksMS4yLTIuMiwyLTMuOCwyLjFDMjY2LjgsNTAuMywyNjYuNyw1MC4zLDI2Ni42LDUwLjN6Ii8+CgkJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIzNy44LDQyLjZjLTAuMywwLTAuNywwLTEtMC4xYy0xLjUtMC4zLTIuNy0xLjItMy41LTIuNWMtMS4yLTIuMi0wLjctNC44LDEuNC02LjdjMS42LTEuNCwzLTIuNyw0LjUtNAoJCQkJCQljMC45LTAuOCwxLjctMS41LDIuNy0yLjRsMS45LDIuMmMtMC45LDAuOC0xLjgsMS42LTIuNywyLjRjLTEuNSwxLjMtMi45LDIuNS00LjQsNGMtMC41LDAuNS0xLjYsMS43LTAuOCwzLjEKCQkJCQkJYzAuNCwwLjgsMSwxLDEuNSwxLjFjMC43LDAuMSwxLjUtMC4xLDIuMi0wLjZjMi4zLTEuOSw1LjUtNC43LDgtN2wxLjItMWwxLjksMi4ybC0xLjIsMWMtMi42LDIuMy01LjgsNS4yLTguMSw3LjEKCQkJCQkJQzI0MC40LDQyLjEsMjM5LjEsNDIuNiwyMzcuOCw0Mi42eiIvPgoJCQkJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yNDkuMyw1MC44Yy0xLDAtMS45LTAuMy0yLjgtMC44Yy0yLjEtMS40LTIuOS0zLjktMS45LTYuNmMwLjUtMS4zLDAuNy0yLDAuOS0yLjYKCQkJCQkJYzAuMy0wLjksMC41LTEuNSwxLjMtMy40bDIuNywxYy0wLjcsMS45LTAuOSwyLjUtMS4yLDMuNGMtMC4yLDAuNi0wLjUsMS4zLTAuOSwyLjZjLTAuMiwwLjctMC42LDIuMywwLjcsMy4yCgkJCQkJCWMwLjcsMC41LDEuNCwwLjQsMS44LDAuM2MwLjctMC4yLDEuMy0wLjgsMS42LTEuNWMwLjktMi4yLDEtMi40LDEuNC0zLjRjMC4yLTAuNSwwLjQtMS4xLDAuOC0yLjFsMi43LDEKCQkJCQkJYy0wLjQsMS0wLjYsMS43LTAuOCwyLjFjLTAuNCwxLTAuNSwxLjMtMS40LDMuNWMtMC42LDEuNS0xLjksMi43LTMuNSwzLjJDMjUwLjMsNTAuNywyNDkuOCw1MC44LDI0OS4zLDUwLjh6Ii8+CgkJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTI3OS4xLDQzLjFjLTEuNCwwLTIuOC0wLjYtMy44LTEuNmMtMS44LTEuNy0yLTEuOS0yLjctMi43Yy0wLjMtMC40LTAuOC0wLjgtMS42LTEuNmwyLjEtMgoJCQkJCQljMC44LDAuOCwxLjIsMS4zLDEuNiwxLjZjMC43LDAuOCwwLjksMSwyLjYsMi42YzAuNiwwLjYsMS40LDAuOCwyLjEsMC43YzAuNS0wLjEsMS4xLTAuMywxLjYtMWMwLjktMS40LTAuMS0yLjctMC42LTMuMgoJCQkJCQljLTEtMS0xLjUtMS42LTItMmMtMC42LTAuNy0xLjEtMS4yLTIuNS0yLjVsMi4xLTJjMS40LDEuNCwxLjksMS45LDIuNSwyLjZjMC40LDAuNSwxLDEsMS45LDJjMiwyLjEsMi40LDQuNywxLDYuOAoJCQkJCQljLTAuOSwxLjMtMi4yLDIuMS0zLjcsMi4zQzI3OS41LDQzLjEsMjc5LjMsNDMuMSwyNzkuMSw0My4xeiIvPgoJCQkJPC9nPgoJCQkJPGc+CgkJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTI2Ny45LTQuMmgtNS4xdjI1LjVjMi0wLjMsMy42LTAuOCw1LjEtMS40Vi00LjJ6Ii8+CgkJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTI2MSwyMS42VjEuNWgtNS4xdjIwLjFjMC45LDAuMSwxLjgsMC4xLDIuNywwLjFDMjU5LjUsMjEuNywyNjAuMywyMS42LDI2MSwyMS42eiIvPgoJCQkJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yNTQuMSwxMi44SDI0OXY3LjVjMS42LDAuNCwzLjMsMC44LDUuMSwxLjFWMTIuOHoiLz4KCQkJCTwvZz4KCQkJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yNTkuMSw3Mi42Yy0yNi44LDAtNDguNi0yMS44LTQ4LjYtNDguNmMwLTI2LjgsMjEuOC00OC42LDQ4LjYtNDguNmMyNi44LDAsNDguNiwyMS44LDQ4LjYsNDguNgoJCQkJCUMzMDcuNiw1MC44LDI4NS44LDcyLjYsMjU5LjEsNzIuNnogTTI1OS4xLTE4LjdjLTIzLjYsMC00Mi43LDE5LjItNDIuNyw0Mi43YzAsMjMuNiwxOS4yLDQyLjcsNDIuNyw0Mi43CgkJCQkJYzIzLjYsMCw0Mi43LTE5LjIsNDIuNy00Mi43QzMwMS44LDAuNCwyODIuNi0xOC43LDI1OS4xLTE4Ljd6Ii8+CgkJCTwvZz4KCQkJPGc+CgkJCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzYwLjUsNDUuM3YtMy43Yy0xLjMsMS42LTIuNiwyLjctNC4xLDMuM2MtMS41LDAuNS0zLDAuOC00LjgsMC44Yy0xLjYsMC0zLTAuMi00LjMtMC43CgkJCQkJYy0xLjMtMC41LTIuNC0xLjEtMy4yLTJjLTAuOC0wLjgtMS40LTEuNy0xLjktMi43Yy0wLjUtMS0wLjktMi4xLTEuMS0zLjNjLTAuMy0xLjItMC41LTIuNC0wLjYtMy42Yy0wLjEtMS4yLTAuMi0yLjQtMC4yLTMuNwoJCQkJCWMwLTEuMiwwLjEtMi40LDAuMi0zLjdjMC4xLTEuMiwwLjMtMi40LDAuNi0zLjZjMC4zLTEuMiwwLjctMi4yLDEuMS0zLjNzMS4xLTEuOSwxLjktMi43YzAuOC0wLjgsMS45LTEuNSwzLjItMgoJCQkJCWMxLjMtMC41LDIuOC0wLjcsNC40LTAuN2MxLjcsMCwzLjMsMC4zLDQuNywwLjhjMS40LDAuNSwyLjgsMS42LDQsMy4ybC0wLjEtMTcuNWg0LjZ2NDVDMzY1LDQ1LjMsMzYwLjUsNDUuMywzNjAuNSw0NS4zegoJCQkJCSBNMzYwLjIsMjUuM2MtMC4yLTEuNC0wLjUtMi43LTEuMS0zLjhjLTAuNS0xLjEtMS4zLTItMi40LTIuN2MtMS0wLjctMi40LTEtNC4xLTFjLTEuNywwLTMsMC4zLTQuMSwxYy0xLDAuNy0xLjgsMS42LTIuNCwyLjcKCQkJCQljLTAuNSwxLjEtMC45LDIuNC0xLjEsMy44Yy0wLjIsMS40LTAuMywyLjktMC4zLDQuNGMwLDEuNSwwLjEsMywwLjMsNC40YzAuMiwxLjQsMC42LDIuNywxLjEsMy44YzAuNSwxLjEsMS4zLDIsMi40LDIuNwoJCQkJCWMxLDAuNywyLjQsMSw0LjEsMXMzLTAuMyw0LjEtMWMxLTAuNywxLjgtMS42LDIuNC0yLjdjMC41LTEuMSwwLjktMi40LDEuMS0zLjhjMC4yLTEuNCwwLjMtMi45LDAuMy00LjQKCQkJCQlDMzYwLjQsMjguMiwzNjAuMywyNi43LDM2MC4yLDI1LjN6Ii8+CgkJCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzk0LDQ1LjN2LTNjLTEuMywxLjMtMi42LDIuMS0zLjksMi42Yy0xLjMsMC41LTMsMC43LTUuMSwwLjdjLTIuMSwwLTMuOS0wLjItNS4zLTAuNwoJCQkJCWMtMS40LTAuNC0yLjUtMS4yLTMuNS0yLjJjLTAuOC0wLjgtMS4zLTEuNy0xLjctMi44Yy0wLjQtMS4xLTAuNi0yLjMtMC42LTMuNWMwLTIuNywwLjktNC45LDIuOC02LjVjMS44LTEuNiw0LjUtMi40LDgtMi40aDkuNAoJCQkJCXYtM2MwLTIuMy0wLjYtNC0xLjgtNS4xYy0xLjItMS4xLTMuMy0xLjctNi4xLTEuN2MtMiwwLTMuNiwwLjMtNC43LDAuOGMtMS4xLDAuNS0yLjIsMS40LTMuMSwyLjhsLTMuMS0yLjgKCQkJCQljMS40LTEuOCwyLjktMyw0LjYtMy43YzEuNy0wLjYsMy44LTAuOSw2LjQtMC45YzQuMiwwLDcuMywwLjksOS40LDIuNmMyLDEuNywzLjEsNC4zLDMuMSw3Ljd2MjEuMUwzOTQsNDUuM0wzOTQsNDUuM3oKCQkJCQkgTTM5NCwzMC45aC04LjdjLTQuNiwwLTcsMS44LTcsNS41YzAsMS44LDAuNiwzLjEsMS43LDRjMS4xLDAuOSwzLDEuMyw1LjQsMS4zYzEuNCwwLDIuNi0wLjEsMy44LTAuM2MxLjItMC4yLDIuMi0wLjgsMy4yLTEuOAoJCQkJCWMxLjEtMSwxLjYtMi44LDEuNi01LjRMMzk0LDMwLjlMMzk0LDMwLjl6Ii8+CgkJCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDA5LjQsNS4zVjAuMmg1LjF2NS4xSDQwOS40eiBNNDA5LjcsNDUuM1YxNC4yaDQuNnYzMS4xSDQwOS43eiIvPgoJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQ0MywyMC4xYy0wLjgtMC44LTEuNi0xLjQtMi40LTEuOGMtMC44LTAuMy0xLjgtMC41LTMtMC41Yy0xLjEsMC0yLjIsMC4yLTMuMSwwLjZjLTAuOSwwLjQtMS43LDEtMi4zLDEuOAoJCQkJCWMtMC42LDAuOC0xLjEsMS42LTEuNSwyLjdjLTAuNCwxLTAuNSwyLjEtMC41LDMuM3YxOS4xaC00LjZWMTQuMmg0LjZWMThjMC44LTEuMywyLjEtMi4zLDMuNi0zLjFjMS42LTAuNywzLjMtMS4xLDUuMS0xLjEKCQkJCQljMS41LDAsMi44LDAuMiw0LDAuNmMxLjIsMC40LDIuNCwxLjIsMy40LDIuM0w0NDMsMjAuMXoiLz4KCQkJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00NjAsNTIuOGMtMC42LDEuNi0xLjMsMi45LTIuMiwzLjdjLTAuOCwwLjgtMS44LDEuNC0yLjgsMS43Yy0xLjEsMC4zLTIuMSwwLjUtMy4yLDAuNWgtMnYtNGgxLjQKCQkJCQljMS42LDAsMi43LTAuMywzLjMtMC45YzAuNy0wLjYsMS4zLTEuNiwxLjgtM2wyLjItNi4xbC0xMS4yLTMwLjVoNC45bDguNSwyNWw4LjUtMjVoNC45TDQ2MCw1Mi44eiIvPgoJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTUwMC40LDQ1LjNWMjYuMWMwLTIuOC0wLjctNC45LTIuMS02LjJjLTEuNC0xLjQtMy4yLTIuMS01LjYtMi4xYy0yLjQsMC00LjIsMC43LTUuNiwyLjEKCQkJCQljLTEuNCwxLjQtMi4xLDMuNS0yLjEsNi4ydjE5LjJoLTQuNVYxNC4yaDQuNXYzLjRjMS4xLTEuMywyLjQtMi4yLDMuOS0yLjhjMS41LTAuNiwzLjEtMC45LDQuOS0wLjljMy40LDAsNiwxLDgsMi45CgkJCQkJYzIuMSwyLjEsMy4yLDUsMy4yLDguN3YxOS45TDUwMC40LDQ1LjNMNTAwLjQsNDUuM3oiLz4KCQkJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MzkuMSwzNi41Yy0wLjUsMi4xLTEuNSw0LTMuMSw1LjZjLTEuMSwxLjEtMi40LDItMy45LDIuNmMtMS41LDAuNi0zLjIsMC45LTUuMSwwLjkKCQkJCQljLTEuOSwwLTMuNi0wLjMtNS4xLTAuOWMtMS41LTAuNi0yLjgtMS41LTMuOS0yLjZjLTAuOC0wLjgtMS40LTEuNy0xLjktMi42Yy0wLjUtMC45LTAuOS0xLjktMS4xLTNjLTAuMy0xLTAuNS0yLjEtMC42LTMuMwoJCQkJCWMtMC4xLTEuMS0wLjItMi4zLTAuMi0zLjVjMC0xLjIsMC4xLTIuMywwLjItMy41YzAuMS0xLjIsMC4zLTIuMywwLjYtMy4zYzAuMy0xLDAuNy0yLDEuMS0zYzAuNS0wLjksMS4xLTEuOCwxLjktMi42CgkJCQkJYzEuMS0xLjEsMi40LTIsMy45LTIuNmMxLjUtMC42LDMuMi0wLjksNS4xLTAuOWMxLjksMCwzLjYsMC4zLDUuMSwwLjljMS41LDAuNiwyLjgsMS41LDMuOSwyLjZjMS42LDEuNiwyLjYsMy41LDMuMSw1LjYKCQkJCQljMC41LDIuMSwwLjcsNC40LDAuNyw2LjhDNTM5LjgsMzIuMSw1MzkuNiwzNC40LDUzOS4xLDM2LjV6IE01MzUuMiwyNy4xYzAtMC45LTAuMS0xLjctMC4zLTIuNmMtMC4yLTAuOC0wLjQtMS42LTAuOC0yLjQKCQkJCQljLTAuMy0wLjctMC44LTEuNC0xLjMtMmMtMS41LTEuNS0zLjQtMi4zLTUuNy0yLjNjLTIuMiwwLTQuMSwwLjgtNS42LDIuM2MtMC42LDAuNi0xLDEuMy0xLjQsMmMtMC4zLDAuNy0wLjYsMS41LTAuOCwyLjQKCQkJCQljLTAuMiwwLjgtMC4zLDEuNy0wLjMsMi42YzAsMC45LTAuMSwxLjgtMC4xLDIuN3MwLDEuOCwwLjEsMi43YzAsMC45LDAuMiwxLjcsMC4zLDIuNmMwLjIsMC44LDAuNCwxLjYsMC44LDIuNAoJCQkJCWMwLjMsMC44LDAuOCwxLjQsMS40LDJjMS41LDEuNSwzLjQsMi4zLDUuNiwyLjNjMi4zLDAsNC4yLTAuOCw1LjctMi4zYzAuNi0wLjYsMS0xLjIsMS4zLTJjMC4zLTAuOCwwLjYtMS42LDAuOC0yLjQKCQkJCQljMC4yLTAuOCwwLjMtMS43LDAuMy0yLjZjMC0wLjksMC4xLTEuOCwwLjEtMi43QzUzNS4zLDI4LjksNTM1LjIsMjgsNTM1LjIsMjcuMXoiLz4KCQkJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01ODkuNSw0NS4zVjI2LjFjMC0yLjgtMC43LTQuOS0yLjEtNi4yYy0xLjQtMS40LTMuMi0yLjEtNS42LTIuMWMtMi4zLDAtNC4xLDAuNy01LjYsMgoJCQkJCWMtMS41LDEuMy0yLjIsMy4zLTIuMiw1Ljh2MTkuN2gtNC41VjI2LjFjMC0yLjgtMC43LTQuOS0yLjEtNi4yYy0xLjQtMS40LTMuMi0yLjEtNS42LTIuMWMtMi40LDAtNC4yLDAuNy01LjYsMi4xCgkJCQkJYy0xLjQsMS40LTIuMSwzLjUtMi4xLDYuMnYxOS4yaC00LjZWMTQuMmg0LjZ2My40YzEuMS0xLjMsMi40LTIuMiwzLjktMi44YzEuNS0wLjYsMy4xLTAuOSw0LjktMC45YzIuMiwwLDQsMC40LDUuNywxLjMKCQkJCQljMS42LDAuOSwyLjksMi4yLDMuOSwzLjljMi40LTMuNSw1LjktNS4yLDEwLjItNS4yYzEuNywwLDMuMiwwLjMsNC42LDAuOGMxLjMsMC41LDIuNSwxLjIsMy41LDIuMWMyLjIsMi4yLDMuNCw1LDMuNCw4Ljd2MTkuOQoJCQkJCUw1ODkuNSw0NS4zTDU4OS41LDQ1LjN6Ii8+CgkJCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjA0LjgsNS4zVjAuMmg1LjF2NS4xSDYwNC44eiBNNjA1LjEsNDUuM1YxNC4yaDQuNXYzMS4xSDYwNS4xeiIvPgoJCQkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTYzOC43LDQ0LjdjLTEuNSwwLjctMy40LDEtNS41LDFjLTIsMC0zLjgtMC4zLTUuNS0xYy0xLjctMC42LTMuMS0xLjYtNC40LTNjLTEuMi0xLjMtMi4yLTMtMi45LTUKCQkJCQljLTAuNy0yLTEtNC4zLTEtN2MwLTIuNywwLjMtNSwxLTdjMC43LTIsMS43LTMuNiwyLjktNWMxLjItMS4zLDIuNy0yLjMsNC40LTNjMS43LTAuNywzLjUtMSw1LjUtMWMyLjEsMCw0LDAuMyw1LjUsMQoJCQkJCWMxLjUsMC43LDMuMSwxLjksNC43LDMuNmwtMy4xLDIuOWMtMS4yLTEuMy0yLjMtMi4yLTMuMy0yLjdjLTEuMS0wLjUtMi4zLTAuOC0zLjgtMC44Yy0xLjUsMC0yLjksMC4zLTQuMSwwLjkKCQkJCQljLTEuMiwwLjYtMi4zLDEuNS0zLjEsMi43Yy0wLjcsMS0xLjIsMi4yLTEuNSwzLjRjLTAuMywxLjMtMC41LDIuOS0wLjUsNC45YzAsMiwwLjIsMy42LDAuNSw0LjljMC4zLDEuMywwLjgsMi40LDEuNSwzLjQKCQkJCQljMC44LDEuMiwxLjksMi4xLDMuMSwyLjdjMS4yLDAuNiwyLjYsMC45LDQuMSwwLjljMS41LDAsMi43LTAuMywzLjgtMC44YzEuMS0wLjUsMi4yLTEuNCwzLjMtMi43bDMuMSwzCgkJCQkJQzY0MS44LDQyLjgsNjQwLjIsNDQsNjM4LjcsNDQuN3oiLz4KCQkJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02NzMuNiw0MC4yYy0wLjYsMS4yLTEuNSwyLjEtMi42LDNjLTEuMSwwLjgtMi40LDEuNC00LDEuOWMtMS41LDAuNC0zLjMsMC42LTUuMiwwLjZjLTIuNywwLTUtMC4zLTcuMS0xCgkJCQkJYy0yLjEtMC43LTQtMS44LTUuNy0zLjVsMy0zYzEuMiwxLjMsMi43LDIuMiw0LjMsMi44YzEuNiwwLjUsMy40LDAuOCw1LjQsMC44YzIuNiwwLDQuNi0wLjQsNi4xLTEuNGMxLjUtMC45LDIuMi0yLjMsMi4yLTQuMQoJCQkJCWMwLTEuNC0wLjQtMi40LTEuMi0zLjJjLTAuOC0wLjgtMi4xLTEuMi00LTEuNGwtNS4xLTAuNGMtMy0wLjMtNS4zLTEuMS02LjktMi40Yy0xLjYtMS40LTIuNC0zLjMtMi40LTUuOQoJCQkJCWMwLTEuNCwwLjMtMi43LDAuOS0zLjhjMC42LTEuMSwxLjQtMi4xLDIuNC0yLjhjMS0wLjgsMi4yLTEuNCwzLjYtMS44YzEuNC0wLjQsMi45LTAuNiw0LjYtMC42YzIuMiwwLDQuMywwLjMsNi4yLDAuOAoJCQkJCWMxLjksMC41LDMuNiwxLjQsNSwyLjVsLTMsM2MtMS4xLTAuOC0yLjMtMS41LTMuOC0xLjljLTEuNC0wLjQtMi45LTAuNi00LjUtMC42Yy0yLjMsMC00LDAuNS01LjIsMS40Yy0xLjIsMC45LTEuOCwyLjItMS44LDMuOAoJCQkJCWMwLDEuMywwLjQsMi40LDEuMiwzLjJjMC44LDAuOCwyLjIsMS4yLDQuMiwxLjRsNSwwLjRjMS4zLDAuMSwyLjYsMC40LDMuNywwLjdjMS4xLDAuMywyLjEsMC44LDIuOSwxLjUKCQkJCQljMC44LDAuNywxLjQsMS41LDEuOSwyLjVjMC40LDEsMC43LDIuMiwwLjcsMy43QzY3NC41LDM3LjcsNjc0LjIsMzksNjczLjYsNDAuMnoiLz4KCQkJPC9nPgoJCTwvZz4KCTwvZz4KPC9nPgo8L3N2Zz4K" style="width:100%; max-width:300px;">
+                            </td>
+                            <td></td>
+                            <td>
+                                Invoice No. <strong> {{ invoiceNumber }}</strong><br> Due: <strong>{{ toTime createdAt }}</strong>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td>
+                                Dairynomics.<br> Ngong lane, off Ngong Road Nairobi,<br> Kenya, KY 12345, <br> Tel: +254 796 567 477
+                            </td>
+
+                            <td></td>
+
+                            <td>
+                                {{#each billing}}
+                                    {{ this }}<br> 
+                                {{/each}}
+                                {{!-- {{ billing.fullName }}<br> {{ billing.email }}<br> {{ billing.phoneNumber }}<br> {{ billing.address }} --}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="heading">
+                <td>
+                    Item
+                </td>
+
+                <td>
+                    Quantity (unit)
+                </td>
+
+                <td>
+                    Price (KES)
+                </td>
+            </tr>
+
+            {{#with order}}
+                {{#each orderItems}}
+                    <tr class="item">
+                        <td style="text-transform: uppercase;">
+                            {{ uppercase this.product.productName }}
+                            <br />
+                        </td>
+                        
+                        <td>
+                            {{ this.quantity }}
+                        </td>
+                        
+                        <td>
+                            {{ this.amount }}
+                        </td>
+                    </tr>
+                {{/each}}
+            {{/with}}
+
+            <tr class="total">
+                <td>
+                    <strong>Total </strong>
+                </td>
+
+                <td>
+                    <strong>{{ order.quantity }}</strong>
+                </td>
+
+                <td>
+                    KES {{ amoutToBePaid }}
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

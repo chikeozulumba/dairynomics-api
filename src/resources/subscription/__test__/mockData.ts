@@ -1,0 +1,6 @@
+export const token =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYmV0YS5jb3dzb2tvLmNvbVwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE1NjA4NjY3NjIsImV4cCI6MTU2MDk1MzE2MiwibmJmIjoxNTYwODY2NzYyLCJqdGkiOiJ0R2czY0EwMzh4Z2o3cGVKIiwic3ViIjoxOTIzLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.AXPyA8nxbfM0_gkmgtoihT6eE_oRpPl-QPHHfHShghw'
+
+export const userId = 1878
+
+export const dueDate: any = '2019-06-07T14:36:43.663Z'

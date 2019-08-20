@@ -1,0 +1,11 @@
+[
+  "20190618113929-create-payment.js",
+  "20190620100624-create-invoices.js",
+  "20190624111640-create-orders.js",
+  "20190626065854-create-product.js",
+  "20190703201027-create-order-items.js",
+  "20190704132155-create-subscription.js",
+  "20190711102328-create-cart.js",
+  "20190722092531-create-category.js",
+  "20190729084054-migrations-meta.js"
+]
